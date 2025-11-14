@@ -1,0 +1,296 @@
+ESTRUTURA DO PROMPT
+1. Criar app web DoceGestot MVP 1
+
+2. CONFIGURAR ESQUEMA DE CORES:
+   - Primária: #FF6B8B (rosa profissional)
+   - Secundária: #4ECDC4 (verde água)
+   - Neutras: #2D3748, #718096, #E2E8F0
+   - Fundo: #F7FAFC
+
+3. DEFINIR TIPOGRAFIA:
+   - Font Family: Inter ou System Font Stack
+   - Títulos: 24px, 20px, 18px
+   - Corpo: 16px, 14px
+   - Pesos: 600 (semibold), 400 (regular)
+2. Estrutura de Dados no Bubble
+Objetivo: Definir Data Types equivalentes ao modelo do Strapi
+
+text
+DATA TYPES NO BUBBLE:
+
+1. TYPE: User (extensão do usuário padrão)
+   - Fields:
+     * nome_completo (text)
+     * telefone (text)
+     * tipo_usuario (text: "confeiteira")
+     * data_cadastro (date)
+
+2. TYPE: Cliente
+   - Fields:
+     * nome (text)
+     * telefone (text)
+     * email (text)
+     * observacoes (text)
+     * usuario_dono (User)
+
+3. TYPE: Receita
+   - Fields:
+     * nome (text)
+     * descricao (text)
+     * categoria (text: "bolo", "doce_fino", "torta")
+     * instrucoes_preparo (text)
+     * custo_total (number)
+     * preco_sugerido (number)
+     * usuario_dono (User)
+
+4. TYPE: Ingrediente
+   - Fields:
+     * nome (text)
+     * unidade_medida (text: "g", "kg", "ml", "L", "un")
+     * custo_por_unidade (number)
+     * receita_pai (Receita)
+
+5. TYPE: ItemReceita
+   - Fields:
+     * ingrediente (Ingrediente)
+     * quantidade (number)
+     * receita_pai (Receita)
+
+6. TYPE: Pedido
+   - Fields:
+     * cliente (Cliente)
+     * data_entrega (date)
+     * status (text: "recebido", "em_producao", "entregue", "cancelado")
+     * valor_total (number)
+     * observacoes (text)
+     * usuario_dono (User)
+
+7. TYPE: ItemPedido
+   - Fields:
+     * pedido_pai (Pedido)
+     * receita (Receita)
+     * quantidade (number)
+     * preco_unitario (number)
+3. Páginas e Workflows Principais
+Objetivo: Criar interface e lógica para funcionalidades core
+
+text
+PÁGINA: Dashboard Principal
+
+ELEMENTOS:
+- Header com logo e menu usuário
+- Cards de resumo:
+  * Total de Pedidos do Mês
+  * Pedidos Pendentes
+  * Receita Mensal
+- Lista de Próximos Pedidos (5 próximos)
+- Botão "Novo Pedido"
+
+WORKFLOW DO DASHBOARD:
+- On Page Load: Buscar dados do usuário atual
+- Calcular métricas em tempo real
+text
+PÁGINA: Gestão de Pedidos
+
+LAYOUT: Dois estados
+1. Lista de Pedidos (estado padrão)
+   - Search bar para filtrar
+   - Filtros por status
+   - Lista com: Cliente, Data Entrega, Status, Valor
+   - Botões: Editar, Alterar Status
+
+2. Formulário de Pedido (estado de edição)
+   - Campo Cliente (dropdown search)
+   - Data de Entrega (date picker)
+   - Lista de Itens do Pedido (dynamic)
+     > Selecionar Receita
+     > Quantidade
+     > Preço Unitário (auto-calculado)
+   - Cálculo automático do Valor Total
+   - Campo Observações
+   - Botões: Salvar, Cancelar
+
+WORKFLOWS:
+- Criar Pedido: Initialize New Thing → Pedido
+- Adicionar Item: Add Item to List → ItemPedido
+- Calcular Total: Schedule API Workflow para somar itens
+- Alterar Status: Update Thing → Pedido.status
+text
+PÁGINA: Cadastro de Receitas
+
+LAYOUT: Dois estados
+1. Lista de Receitas
+   - Card para cada receita mostrando: Nome, Categoria, Custo Total
+   - Botão "Nova Receita"
+
+2. Formulário de Receita
+   - Campos: Nome, Descrição, Categoria
+   - Seção Ingredientes:
+     * Lista dinâmica de ingredientes
+     * Para cada: Nome, Quantidade, Unidade, Custo
+   - Cálculo automático do Custo Total
+   - Campo Preço Sugerido (com sugestão baseada em markup)
+   - Campo Instruções de Preparo
+
+WORKFLOWS:
+- Calcular Custo: On Change em qualquer campo de ingrediente
+- Sugerir Preço: Apply Formula (custo_total * 3.5)
+- Salvar Receita: Create Thing → Receita + Create Multiple Things → ItemReceita
+text
+PÁGINA: Cadastro de Clientes
+
+LAYOUT: Lista + Formulário simples
+- Campos: Nome, Telefone, Email, Observações
+- Lista de clientes com search
+4. Integração com Strapi (Backend)
+Objetivo: Configurar API Connector para sincronização
+
+text
+CONFIGURAÇÃO API CONNECTOR:
+
+1. CONECTOR PRINCIPAL: "StrapiBackend"
+   - Base URL: [URL_DO_SEU_STRAPI]
+   - Headers:
+     * Authorization: "Bearer [API_TOKEN]"
+     * Content-Type: "application/json"
+
+2. OPERAÇÕES PRINCIPAIS:
+
+   # Autenticação
+   - Login: POST /auth/local
+   - Register: POST /auth/local/register
+   - Get Me: GET /users/me
+
+   # Pedidos
+   - ListPedidos: GET /pedidos?populate=*
+   - CreatePedido: POST /pedidos
+   - UpdatePedido: PUT /pedidos/:id
+
+   # Receitas
+   - ListReceitas: GET /receitas?populate=*
+   - CreateReceita: POST /receitas
+
+   # Clientes
+   - ListClientes: GET /clientes
+   - CreateCliente: POST /clientes
+
+WORKFLOWS DE SINCRONIZAÇÃO:
+- On App Start: Sincronizar dados básicos
+- After Create/Update: API Workflow para Strapi
+- Error Handling: Retry logic e fallback local
+5. Integração com n8n (Orquestração)
+Objetivo: Configurar webhooks e automações
+
+text
+CONFIGURAÇÃO N8N WEBHOOKS:
+
+1. WEBHOOK: Notificações WhatsApp
+   - URL: [WEBHOOK_URL_N8N]/whatsapp-notification
+   - Trigger: On Pedido Status Change
+   - Payload: {pedido_id, cliente_telefone, novo_status}
+
+2. WEBHOOK: Lembretes Automáticos
+   - URL: [WEBHOOK_URL_N8N]/lembrete-entrega
+   - Trigger: Daily Schedule (8AM)
+   - Payload: {data_hoje}
+
+3. WORKFLOWS N8N CONFIGURADOS:
+   - Notificação Status Pedido → Integração WhatsApp
+   - Lembrete Entrega Diário → Mensagens agendadas
+   - Backup Dados → Exportação automática
+
+CONFIGURAÇÃO BUBBLE:
+- Criar elementos "Webhook" para cada endpoint
+- Configurar headers de segurança
+- Implementar retry logic
+6. Agente IA WhatsApp via n8n
+Objetivo: Configurar integração inteligente de atendimento
+
+text
+CONFIGURAÇÃO AGENTE IA:
+
+1. WEBHOOK: Mensagem Recebida WhatsApp
+   - URL: [WEBHOOK_URL_N8N]/whatsapp-webhook
+   - Método: POST
+   - Processamento: Identificar intenção e responder
+
+2. WORKFLOW N8N PARA AGENTE IA:
+   - Receber mensagem via webhook
+   - Analisar intenção (OpenAI API ou similar)
+   - Consultar dados no Strapi se necessário
+   - Gerar resposta contextual
+   - Enviar via WhatsApp Business API
+
+FUNCIONALIDADES DO AGENTE:
+- Consultar status de pedido
+- Informar cardápio/catálogo
+- Receber novos pedidos simples
+- Tirar dúvidas básicas
+
+INTEGRAÇÃO BUBBLE:
+- Webhook para receber interações do agente
+- Atualizar interface em tempo real
+- Log de conversas no sistema
+7. Configurações de Segurança e Privacidade
+text
+CONFIGURAÇÕES DE SEGURANÇA BUBBLE:
+
+1. PRIVACY RULES:
+   - User só vê seus próprios dados
+   - Clientes: criador pode ver/editar
+   - Pedidos: criador pode ver/editar
+   - Receitas: criador pode ver/editar
+
+2. DATA INTEGRITY:
+   - Validações em todos os forms
+   - Backup automático via n8n
+   - Sincronização bidirecional Strapi-Bubble
+
+3. API SECURITY:
+   - Environment variables para tokens
+   - Rate limiting nas chamadas
+   - Error logging centralizado
+8. Implementação Específica para Funcionalidades Críticas
+text
+WORKFLOW DETALHADO: Cálculo Automático de Custo
+
+1. On Input Change em campos de ingrediente:
+   - Para cada ItemReceita na lista:
+     * Calcular custo_item = quantidade * ingrediente.custo_por_unidade
+   - Somar todos os custo_item → custo_total
+   - Atualizar campo custo_total da Receita
+   - Calcular preco_sugerido = custo_total * 3.5
+
+WORKFLOW DETALHADO: Gestão de Status Pedido
+
+1. On Status Change:
+   - Update Thing: Pedido.status
+   - Trigger Webhook para n8n
+   - Show confirmation message
+   - Se status = "entregue", registrar data_conclusão
+9. Instruções de Implantação
+text
+DEPLOYMENT CHECKLIST:
+
+1. BUBBLE:
+   - Testar todos os workflows
+   - Configurar dominio customizado (app.docestor.com)
+   - Configurar SSL
+   - Deploy para produção
+
+2. STRAPI:
+   - Deploy em serviço cloud (Railway, Heroku, DigitalOcean)
+   - Configurar database (PostgreSQL)
+   - Configurar environment variables
+   - Setup backup automático
+
+3. N8N:
+   - Deploy em serviço cloud
+   - Configurar webhooks
+   - Configurar credenciais APIs (WhatsApp, OpenAI)
+   - Testar todos os workflows
+
+4. MONITORAMENTO:
+   - Bubble: Error tracking
+   - Strapi: Logs de API
+   - n8n: Execution history
