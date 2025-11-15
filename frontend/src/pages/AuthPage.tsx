@@ -93,6 +93,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onSuccess }) => {
                   onChange={handleChange}
                   className="input-field"
                   placeholder="Seu nome completo"
+                  autocomplete="name"
                 />
               </div>
             )}
@@ -110,6 +111,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onSuccess }) => {
                 onChange={handleChange}
                 className="input-field"
                 placeholder="seu@email.com"
+                autocomplete="email"
               />
             </div>
 
@@ -126,6 +128,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onSuccess }) => {
                 onChange={handleChange}
                 className="input-field"
                 placeholder="Sua senha"
+                autocomplete="current-password"
               />
             </div>
 

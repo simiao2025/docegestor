@@ -80,8 +80,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .insert({
             nome: name,
             email: email,
-            tipo_usuario: 'admin',
-            ativo: true,
+            tipo: 'Cliente',
+            status: 'Ativo',
           })
 
         if (insertError) {
