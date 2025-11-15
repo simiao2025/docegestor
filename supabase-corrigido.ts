@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 
 // URL alternativa para EasyPanel Supabase Self-Hosted
 const supabaseUrl = 'https://supabase.brasilonthebox.shop'
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
+const supabaseAnonKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2MzE2NTIyMCwiZXhwIjo0OTE4ODM4ODIwLCJyb2xlIjoiYW5vbiJ9.KvPvUzIgcW3dz1wEueysw-QWYkpMDBtf9hE-CnmY5uo'
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 

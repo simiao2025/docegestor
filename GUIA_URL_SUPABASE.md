@@ -18,7 +18,7 @@ fetch('https://supabase.brasilonthebox.shop/project/default/auth/v1/signup', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
+    'apikey': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2MzE2NTIyMCwiZXhwIjo0OTE4ODM4ODIwLCJyb2xlIjoiYW5vbiJ9.KvPvUzIgcW3dz1wEueysw-QWYkpMDBtf9hE-CnmY5uo'
   },
   body: JSON.stringify({
     email: 'teste@teste.com',
@@ -79,7 +79,7 @@ https://xxxxxxx.supabase.co
 **Exemplo:**
 ```typescript
 const supabaseUrl = 'https://abcdefgh.supabase.co'
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+const supabaseAnonKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...'
 ```
 
 ## 🛠️ Correções Rápidas
