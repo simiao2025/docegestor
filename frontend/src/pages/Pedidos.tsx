@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { supabase, Pedido, Cliente, Receita, Usuario } from '../lib/supabase'
-import { Plus, Edit, Trash2, Search, Calendar, DollarSign, Package } from 'lucide-react'
+import { Plus, Edit, Trash2, Search } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'

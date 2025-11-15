@@ -216,7 +216,7 @@ const Dashboard: React.FC = () => {
                 fill="#8884d8"
                 dataKey="count"
               >
-                {stats.pedidosPorStatus.map((entry, index) => (
+                {stats.pedidosPorStatus.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>

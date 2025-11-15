@@ -142,22 +142,6 @@ const Receitas: React.FC = () => {
     }
   }
 
-  const toggleStatus = async (receita: Receita) => {
-    try {
-      const { error } = await supabase
-        .from('receitas')
-        .update({ ativo: !receita.ativo })
-        .eq('id', receita.id)
-
-      if (error) throw error
-      toast.success(`Receita ${!receita.ativo ? 'ativada' : 'desativada'} com sucesso!`)
-      loadReceitas()
-    } catch (error: any) {
-      console.error('Erro ao alterar status:', error)
-      toast.error(error.message || 'Erro ao alterar status')
-    }
-  }
-
   const filteredReceitas = receitas.filter(receita => {
     const matchesSearch = receita.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          receita.categoria.toLowerCase().includes(searchTerm.toLowerCase())
