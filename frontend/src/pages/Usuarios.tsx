@@ -12,8 +12,8 @@ const Usuarios: React.FC = () => {
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
-    tipo_usuario: 'funcionario' as 'admin' | 'funcionario' | 'cliente',
-    ativo: true
+    tipo: 'funcionario' as 'admin' | 'funcionario' | 'cliente',
+    status: true
   })
 
   useEffect(() => {
@@ -64,8 +64,8 @@ const Usuarios: React.FC = () => {
       setFormData({
         nome: '',
         email: '',
-        tipo_usuario: 'funcionario',
-        ativo: true
+        tipo: 'funcionario',
+        status: true
       })
       loadUsuarios()
     } catch (error: any) {
@@ -81,8 +81,8 @@ const Usuarios: React.FC = () => {
     setFormData({
       nome: usuario.nome,
       email: usuario.email,
-      tipo_usuario: usuario.tipo_usuario,
-      ativo: usuario.ativo
+      tipo: usuario.tipo,
+      status: usuario.status
     })
     setShowForm(true)
   }
@@ -109,11 +109,11 @@ const Usuarios: React.FC = () => {
     try {
       const { error } = await supabase
         .from('usuarios')
-        .update({ ativo: !usuario.ativo })
+        .update({ status: !usuario.status })
         .eq('id', usuario.id)
 
       if (error) throw error
-      toast.success(`Usuário ${!usuario.ativo ? 'ativado' : 'desativado'} com sucesso!`)
+      toast.success(`Usuário ${!usuario.status ? 'ativado' : 'desativado'} com sucesso!`)
       loadUsuarios()
     } catch (error: any) {
       console.error('Erro ao alterar status:', error)
@@ -148,8 +148,8 @@ const Usuarios: React.FC = () => {
             setFormData({
               nome: '',
               email: '',
-              tipo_usuario: 'funcionario',
-              ativo: true
+              tipo: 'funcionario',
+              status: true
             })
             setShowForm(true)
           }}
@@ -211,24 +211,24 @@ const Usuarios: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      usuario.tipo_usuario === 'admin' ? 'bg-red-100 text-red-800' :
-                      usuario.tipo_usuario === 'funcionario' ? 'bg-blue-100 text-blue-800' :
+                      usuario.tipo === 'admin' ? 'bg-red-100 text-red-800' :
+                      usuario.tipo === 'funcionario' ? 'bg-blue-100 text-blue-800' :
                       'bg-green-100 text-green-800'
                     }`}>
-                      {usuario.tipo_usuario}
+                      {usuario.tipo}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <button
                       onClick={() => toggleStatus(usuario)}
                       className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                        usuario.ativo
+                        usuario.status
                           ? 'bg-green-100 text-green-800 hover:bg-green-200'
                           : 'bg-red-100 text-red-800 hover:bg-red-200'
                       }`}
                     >
-                      {usuario.ativo ? <UserCheck size={14} /> : <UserX size={14} />}
-                      {usuario.ativo ? 'Ativo' : 'Inativo'}
+                      {usuario.status ? <UserCheck size={14} /> : <UserX size={14} />}
+                      {usuario.status ? 'Ativo' : 'Inativo'}
                     </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -304,8 +304,8 @@ const Usuarios: React.FC = () => {
                   Tipo de Usuário
                 </label>
                 <select
-                  value={formData.tipo_usuario}
-                  onChange={(e) => setFormData({ ...formData, tipo_usuario: e.target.value as any })}
+                  value={formData.tipo}
+                  onChange={(e) => setFormData({ ...formData, tipo: e.target.value as any })}
                   className="input-field"
                 >
                   <option value="funcionario">Funcionário</option>
@@ -316,12 +316,12 @@ const Usuarios: React.FC = () => {
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  id="ativo"
-                  checked={formData.ativo}
-                  onChange={(e) => setFormData({ ...formData, ativo: e.target.checked })}
+                  id="status"
+                  checked={formData.status}
+                  onChange={(e) => setFormData({ ...formData, status: e.target.checked })}
                   className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                 />
-                <label htmlFor="ativo" className="ml-2 text-sm text-gray-700">
+                <label htmlFor="status" className="ml-2 text-sm text-gray-700">
                   Usuário ativo
                 </label>
               </div>
