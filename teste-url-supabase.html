@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste URL Supabase</title>
+</head>
+<body>
+    <h1>🔍 Teste de URL Supabase</h1>
+    <p>Abra o Console (F12) e execute o script abaixo:</p>
+    
+    <h2>Script de Teste:</h2>
+    <pre style="background: #f0f0f0; padding: 10px; border-radius: 5px;">
+// Substitua pela sua URL atual
+const urlAtual = 'https://manager-1-supabase.7sydhv.easypanel.host/project/default';
+const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE';
+
+console.log('🔍 Testando URL:', urlAtual);
+
+fetch(urlAtual + '/auth/v1/signup', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'apikey': apiKey
+    },
+    body: JSON.stringify({
+        email: 'teste@exemplo.com',
+        password: '123456'
+    })
+})
+.then(response => {
+    console.log('📊 Status:', response.status);
+    console.log('🔗 URL:', response.url);
+    if (response.ok) {
+        console.log('✅ URL FUNCIONANDO!');
+    } else {
+        console.log('❌ URL com problemas');
+    }
+})
+.catch(error => {
+    console.log('❌ Erro de rede:', error.message);
+});
+    </pre>
+    
+    <h2>URLs Alternativas para Testar:</h2>
+    <ol>
+        <li><strong>Simplificada:</strong> <code>https://manager-1.7sydhv.easypanel.host</code></li>
+        <li><strong>EasyPanel Base:</strong> <code>https://7sydhv.easypanel.host</code></li>
+        <li><strong>Subdomínio:</strong> <code>https://supabase.7sydhv.easypanel.host</code></li>
+    </ol>
+</body>
+</html>
