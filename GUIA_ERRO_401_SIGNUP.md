@@ -2,7 +2,7 @@
 
 ## 🚨 Problema Atual
 ```
-POST https://manager-1-supabase.7sydhv.easypanel.host/project/default/auth/v1/signup 401 (Unauthorized)
+POST https://supabase.brasilonthebox.shop/project/default/auth/v1/signup 401 (Unauthorized)
 ```
 
 ## 📋 Soluções Em Ordem de Prioridade
@@ -11,7 +11,7 @@ POST https://manager-1-supabase.7sydhv.easypanel.host/project/default/auth/v1/si
 
 Execute o script `fix-auth-rls.sql` no **Supabase SQL Editor**:
 
-1. **Acesse**: `https://manager-1-supabase.7sydhv.easypanel.host/project/default/sql`
+1. **Acesse**: `https://supabase.brasilonthebox.shop/project/default/sql`
 2. **Cole**: Conteúdo completo de `fix-auth-rls.sql`
 3. **Execute**: Clique em "Run" 
 4. **Resultado**: Erro 401 resolvido
@@ -28,7 +28,7 @@ Execute o script `fix-auth-rls.sql` no **Supabase SQL Editor**:
 
 Se a Solução 1 não resolver:
 
-1. **Acesse**: `https://manager-1-supabase.7sydhv.easypanel.host/project/default/auth`
+1. **Acesse**: `https://supabase.brasilonthebox.shop/project/default/auth`
 2. **Configure**:
 
 ```

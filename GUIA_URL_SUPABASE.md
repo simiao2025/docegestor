@@ -4,7 +4,7 @@
 
 A URL do Supabase Self-Hosted pode estar incorreta:
 ```
-https://manager-1-supabase.7sydhv.easypanel.host/project/default
+https://supabase.brasilonthebox.shop/project/default
 ```
 
 ## 📋 Verificações Necessárias
@@ -14,7 +14,7 @@ Execute no navegador (substitua pela sua URL):
 
 ```javascript
 // Cole no Console do Navegador (F12)
-fetch('https://manager-1-supabase.7sydhv.easypanel.host/project/default/auth/v1/signup', {
+fetch('https://supabase.brasilonthebox.shop/project/default/auth/v1/signup', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -39,17 +39,19 @@ Se a URL atual não funcionar, tente estas **APENAS UMA DE CADA VEZ**:
 
 #### Opção A - URL Simplificada:
 ```typescript
-const supabaseUrl = 'https://manager-1.7sydhv.easypanel.host'
+const supabaseUrl = 'https://supabase.brasilonthebox.shop'
 ```
 
 #### Opção B - EasyPanel Base:
 ```typescript
-const supabaseUrl = 'https://7sydhv.easypanel.host'
+const supabaseUrl = 'https://supabase.brasilonthebox.shop'
+// ou
+const supabaseUrl = 'https://brasilonthebox.shop/supabase'
 ```
 
 #### Opção C - Subdomínio Supabase:
 ```typescript
-const supabaseUrl = 'https://supabase.7sydhv.easypanel.host'
+const supabaseUrl = 'https://supabase.brasilonthebox.shop'
 ```
 
 #### Opção D - Porta Específica (se usar):
@@ -99,7 +101,7 @@ Provavelmente o **Supabase Self-Hosted não está funcionando**. Considere:
 
 ## 📱 Como Verificar Configuração EasyPanel
 
-1. **Acesse**: `https://7sydhv.easypanel.host`
+1. **Acesse**: `https://brasilonthebox.host`
 2. **Faça login** no EasyPanel
 3. **Vá em**: "Apps" → "Supabase"
 4. **Verifique**: 

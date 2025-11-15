@@ -107,7 +107,7 @@ git push origin main
 ### **2. Configurar Variáveis de Ambiente (Se necessário)**
 No Vercel, adicione em Settings → Environment Variables:
 ```
-VITE_SUPABASE_URL=https://manager-1-supabase.7sydhv.easypanel.host/project/default
+VITE_SUPABASE_URL=https://supabase.brasilonthebox.shop/project/default
 VITE_SUPABASE_ANON_KEY=sua_anon_key
 ```
 
@@ -125,7 +125,7 @@ VITE_SUPABASE_ANON_KEY=sua_anon_key
 - **GitHub:** https://github.com
 - **GitHub Desktop:** https://desktop.github.com
 - **Vercel (Deploy):** https://vercel.com
-- **Seu Supabase:** https://manager-1-supabase.7sydhv.easypanel.host
+- **Seu Supabase:** https://supabase.brasilonthebox.shop
 
 ---
 

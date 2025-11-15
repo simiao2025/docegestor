@@ -71,7 +71,7 @@ npm run dev
 ## 🔐 Configuração do Supabase
 
 **Credenciais já configuradas:**
-- URL: `https://manager-1-supabase.7sydhv.easypanel.host/project/default`
+- URL: `https://supabase.brasilonthebox.shop/project/default`
 - Anon Key: Configurada no arquivo `src/lib/supabase.ts`
 
 ## 🚨 Próximos Passos

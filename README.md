@@ -86,7 +86,7 @@ npm run dev
 ## 🔐 **Configuração Supabase**
 
 **Credenciais já configuradas:**
-- **URL:** `https://manager-1-supabase.7sydhv.easypanel.host/project/default`
+- **URL:** `https://supabase.brasilonthebox.shop/project/default`
 - **Tabelas:** usuarios, clientes, receitas, pedidos
 - **Status:** ✅ Funcionando
 
