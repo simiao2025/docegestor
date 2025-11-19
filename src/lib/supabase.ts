@@ -10,8 +10,8 @@ export interface Usuario {
   id: string
   nome: string
   email: string
-  tipo: string
-  status: string
+  tipo: 'admin' | 'funcionario' | 'cliente'
+  status: boolean
   created_at: string
   updated_at: string
 }

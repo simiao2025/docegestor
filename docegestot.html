@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoceGestot - Sistema de Gestão</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f1760a 0%, #e15d05 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f1760a 0%, #e15d05 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #f1760a;
+            background: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f1760a 0%, #e15d05 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(241, 118, 10, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .toggle-link button {
+            background: none;
+            border: none;
+            color: #f1760a;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .toggle-link button:hover {
+            color: #e15d05;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .alert.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .alert.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard {
+            display: none;
+            padding: 30px;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .dashboard-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .btn-logout {
+            padding: 8px 16px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-logout:hover {
+            background: #dc2626;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f1760a 0%, #e15d05 100%);
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .welcome-text {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DoceGestot</h1>
+            <p>Sistema de Gestão para Doces</p>
+        </div>
+
+        <div id="authSection" class="content">
+            <div id="alertBox" class="alert"></div>
+
+            <h2 class="form-title" id="formTitle">Fazer Login</h2>
+            <p class="form-subtitle" id="formSubtitle">Entre com suas credenciais</p>
+
+            <form id="authForm">
+                <div id="nameField" class="form-group" style="display: none;">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" placeholder="Seu nome completo" autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="seu@email.com" autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required placeholder="Sua senha" autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">Entrar</button>
+            </form>
+
+            <div class="toggle-link">
+                <span id="toggleText">Não tem conta?</span>
+                <button type="button" id="toggleMode">Criar agora</button>
+            </div>
+        </div>
+
+        <div id="dashboardSection" class="dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <button class="btn-logout" onclick="logout()">Sair</button>
+            </div>
+
+            <p class="welcome-text">Bem-vindo ao <strong>DoceGestot</strong>!</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Pedidos Hoje</div>
+                    <div class="stat-value">12</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Receitas</div>
+                    <div class="stat-value">24</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Clientes</div>
+                    <div class="stat-value">86</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Vendas do Mês</div>
+                    <div class="stat-value">R$ 5.2k</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://supabase.brasilonthebox.shop';
+        const SUPABASE_ANON_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2MzE2NTIyMCwiZXhwIjo0OTE4ODM4ODIwLCJyb2xlIjoiYW5vbiJ9.KvPvUzIgcW3dz1wEueysw-QWYkpMDBtf9hE-CnmY5uo';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let isLoginMode = true;
+
+        const authForm = document.getElementById('authForm');
+        const nameField = document.getElementById('nameField');
+        const formTitle = document.getElementById('formTitle');
+        const formSubtitle = document.getElementById('formSubtitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleMode = document.getElementById('toggleMode');
+        const toggleText = document.getElementById('toggleText');
+        const alertBox = document.getElementById('alertBox');
+        const authSection = document.getElementById('authSection');
+        const dashboardSection = document.getElementById('dashboardSection');
+
+        function showAlert(message, type) {
+            alertBox.textContent = message;
+            alertBox.className = `alert ${type} show`;
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 4000);
+        }
+
+        toggleMode.addEventListener('click', () => {
+            isLoginMode = !isLoginMode;
+
+            if (isLoginMode) {
+                formTitle.textContent = 'Fazer Login';
+                formSubtitle.textContent = 'Entre com suas credenciais';
+                submitBtn.textContent = 'Entrar';
+                toggleText.textContent = 'Não tem conta?';
+                toggleMode.textContent = 'Criar agora';
+                nameField.style.display = 'none';
+                document.getElementById('name').required = false;
+            } else {
+                formTitle.textContent = 'Criar Conta';
+                formSubtitle.textContent = 'Crie sua conta de acesso';
+                submitBtn.textContent = 'Criar Conta';
+                toggleText.textContent = 'Já tem conta?';
+                toggleMode.textContent = 'Fazer login';
+                nameField.style.display = 'block';
+                document.getElementById('name').required = true;
+            }
+        });
+
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const name = document.getElementById('name').value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processando...';
+
+            try {
+                if (isLoginMode) {
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email,
+                        password
+                    });
+
+                    if (error) throw error;
+
+                    showAlert('Login realizado com sucesso!', 'success');
+                    setTimeout(() => {
+                        authSection.style.display = 'none';
+                        dashboardSection.classList.add('active');
+                    }, 1000);
+                } else {
+                    if (!name.trim()) {
+                        throw new Error('Nome é obrigatório');
+                    }
+
+                    const { data, error } = await supabase.auth.signUp({
+                        email,
+                        password,
+                        options: {
+                            data: {
+                                name
+                            }
+                        }
+                    });
+
+                    if (error) throw error;
+
+                    if (data.user) {
+                        const { error: insertError } = await supabase
+                            .from('usuarios')
+                            .insert({
+                                nome: name,
+                                email: email,
+                                tipo: 'Cliente',
+                                status: 'Ativo'
+                            });
+
+                        if (insertError) {
+                            console.error('Erro ao inserir usuário:', insertError);
+                        }
+                    }
+
+                    showAlert('Conta criada com sucesso!', 'success');
+                    setTimeout(() => {
+                        isLoginMode = true;
+                        toggleMode.click();
+                        authForm.reset();
+                    }, 2000);
+                }
+            } catch (error) {
+                showAlert(error.message || 'Erro ao processar requisição', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = isLoginMode ? 'Entrar' : 'Criar Conta';
+            }
+        });
+
+        async function logout() {
+            const { error } = await supabase.auth.signOut();
+            if (!error) {
+                dashboardSection.classList.remove('active');
+                authSection.style.display = 'block';
+                authForm.reset();
+                showAlert('Logout realizado com sucesso!', 'success');
+            }
+        }
+
+        async function checkSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                authSection.style.display = 'none';
+                dashboardSection.classList.add('active');
+            }
+        }
+
+        checkSession();
+
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                authSection.style.display = 'none';
+                dashboardSection.classList.add('active');
+            } else if (event === 'SIGNED_OUT') {
+                dashboardSection.classList.remove('active');
+                authSection.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
